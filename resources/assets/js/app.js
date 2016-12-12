@@ -13,24 +13,38 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+//Vue.component('example', require('./components/Example.vue'));
 
+const router = new VueRouter({
+    mode: 'history',
+    routes: [{
+            path: '/',
+            component: require('./components/main.vue')
+        }],
+})
 const app = new Vue({
+    router,
     el: '#app',
     data: {
         users: [],
-        pagination: {}
+        pagination: {},
+        loading: false
     },
     created: function () {
         this.loadUsers('');
     },
     methods: {
         loadUsers: function (page_url) {
+            console.log('Load user:');
+            this.loading = true;
+            console.log(this.$route);
+
             page_url = page_url || '/users';
 
-            this.$http.get(page_url).then(function (response) {                
-                this.users =  response.body.data;              
+            this.$http.get(page_url).then(function (response) {
+                this.users = response.body.data;
                 this.setPagination(response.body);
+                this.loading = false;
             });
         },
         setPagination: function (data) {
@@ -43,6 +57,10 @@ const app = new Vue({
             };
         }
     }
+});
+
+$(document).ajaxStart(function () {
+    Pace.restart();
 });
 
 

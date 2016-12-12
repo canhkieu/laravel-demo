@@ -1,11 +1,19 @@
-<ul class="pagination" v-if="pagination.last_page > 0">    
-    <li v-if="this.pagination.current_page < this.pagination.last_page" :class="{ 'disabled' : pagination.current_page === pagination.last_page || pagination.last_page === 0 }">
-        <span v-if="pagination.current_page === pagination.last_page || pagination.last_page === 0">
-            <span aria-hidden="true">></span>
-        </span>
+<nav v-if="pagination.last_page > 0" aria-label="Page navigation" >
+    <ul class="pagination">
+        <li :class="{disabled: pagination.prev_page_url == null}">
+            <a href="#" v-if="pagination.prev_page_url != null"  @click.prevent="loadUsers(pagination.prev_page_url)" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li v-for="n in pagination.last_page" 
+            :class="{ active: n == pagination.current_page}">
+            <a href="#" @click.prevent="loadUsers('/users?page='+n)">@{{ n }}</a>                           
+        </li>
+        <li :class="{disabled: pagination.next_page_url == null}">
+            <a href="#" v-if="pagination.next_page_url != null"  @click.prevent="loadUsers(pagination.next_page_url)" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
 
-        <a href="#" v-if="pagination.current_page < pagination.last_page" @click.prevent="loadUsers(pagination.next_page_url)">
-            <span aria-hidden="true">></span>
-        </a>
-    </li>
-</ul>

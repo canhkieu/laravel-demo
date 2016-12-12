@@ -28,8 +28,9 @@
     </div>
     <!-- /.box-body -->
     <div class="box-footer clearfix">
-       {{ $users->links() }}
+        {{ $users->links() }}
     </div>
+    
 </div>
 <!-- /.box -->
 @endsection
