@@ -7,7 +7,7 @@
         </li>
         <li v-for="n in pagination.last_page" 
             :class="{ active: n == pagination.current_page}">
-            <a href="#" @click.prevent="loadUsers('/users?page='+n)">@{{ n }}</a>                           
+            <a :href="'/users?page=' + n" v-on:click.prevent="loadUsers">@{{ n }}</a>                           
         </li>
         <li :class="{disabled: pagination.next_page_url == null}">
             <a href="#" v-if="pagination.next_page_url != null"  @click.prevent="loadUsers(pagination.next_page_url)" aria-label="Next">

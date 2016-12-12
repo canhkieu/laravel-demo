@@ -28,25 +28,27 @@ const app = new Vue({
     data: {
         users: [],
         pagination: {},
-        loading: false
+        url: ''
     },
     created: function () {
-        this.loadUsers('');
+        this.url = document.URL;
+        this.loadUsers();
     },
     methods: {
-        loadUsers: function (page_url) {
-            console.log('Load user:');
-            this.loading = true;
-            console.log(this.$route);
-
-            page_url = page_url || '/users';
-
-            this.$http.get(page_url).then(function (response) {
+        loadUsers: function () {
+            if (event) {
+                if(this.url == event.currentTarget.getAttribute('href'))
+                    return;
+                this.url = event.currentTarget.getAttribute('href');
+            }
+            this.$http.get(this.url).then(function (response) {
                 this.users = response.body.data;
                 this.setPagination(response.body);
-                this.loading = false;
             });
+
+
         },
+
         setPagination: function (data) {
             console.log(data);
             this.pagination = {
@@ -57,6 +59,7 @@ const app = new Vue({
             };
         }
     }
+
 });
 
 $(document).ajaxStart(function () {
