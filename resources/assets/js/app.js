@@ -13,54 +13,100 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-//Vue.component('example', require('./components/Example.vue'));
+//Vue.component('App', require('./components/App.vue'));
 
 const router = new VueRouter({
     mode: 'history',
-    routes: [{
-            path: '/',
-            component: require('./components/main.vue')
-        }],
+    routes: [
+        {path: '/', component: require('./components/Home.vue'), name: 'home'},
+        {path: '/user', component: require('./components/User.vue'), name: 'user'}
+    ]
 })
+
 const app = new Vue({
     router,
     el: '#app',
     data: {
-        users: [],
-        pagination: {},
-        url: ''
-    },
-    created: function () {
-        this.url = document.URL;
-        this.loadUsers();
-    },
-    methods: {
-        loadUsers: function () {
-            if (event) {
-                if(this.url == event.currentTarget.getAttribute('href'))
-                    return;
-                this.url = event.currentTarget.getAttribute('href');
-            }
-            this.$http.get(this.url).then(function (response) {
-                this.users = response.body.data;
-                this.setPagination(response.body);
-            });
-
-
-        },
-
-        setPagination: function (data) {
-            console.log(data);
-            this.pagination = {
-                current_page: data.current_page,
-                last_page: data.last_page,
-                next_page_url: data.next_page_url,
-                prev_page_url: data.prev_page_url
-            };
-        }
     }
+})
 
-});
+
+//import App from './components/App.vue'
+//
+//const User = {
+//    template: "Hello",
+//}
+//
+//const router = new VueRouter({
+//    mode: 'history',
+//    routes: [
+//        {path: '/', component: App, name: 'home'},
+//        {path: '/user', component: User, name: 'user'},
+//    ]
+//})
+//
+//const app = new Vue({
+//    router,
+//    el: '#app',
+//    data: {
+//
+//    },
+////    created: {
+////
+////    },
+////    methods: {
+////
+////    }
+//});
+
+//import Users from './components/Users.vue';
+//
+//const router = new VueRouter({
+//    mode: 'history',
+//    routes: [
+//        {path: '/'},
+//        {path: '/users?', query: 'page', component: Users},
+//    ],
+//});
+//const app = new Vue({
+//    router,
+//    el: '#app',
+//    data: {
+//        users: [],
+//        pagination: {},
+//        url: ''
+//    },
+//    created: function () {
+//        this.url = document.URL;
+//        this.loadUsers();
+//    },
+//    methods: {
+//        loadUsers: function () {
+//            if (event) {
+//                if (this.url == event.currentTarget.getAttribute('href'))
+//                    return;
+//                this.url = event.currentTarget.getAttribute('href');
+//            }
+//            this.$http.get(this.url).then(function (response) {
+//                history.pushState(null, null, this.url);
+//                this.users = response.body.data;
+//                this.setPagination(response.body);
+//            });
+//
+//
+//        },
+//
+//        setPagination: function (data) {
+//            this.pagination = {
+//                current_page: data.current_page,
+//                last_page: data.last_page,
+//                next_page_url: data.next_page_url,
+//                prev_page_url: data.prev_page_url
+//            };
+//        }
+//    }
+//
+//});
 
 $(document).ajaxStart(function () {
     Pace.restart();

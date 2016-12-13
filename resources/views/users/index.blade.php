@@ -25,6 +25,7 @@
             </tr>                
 
         </table>
+        <router-view></router-view>
     </div>
     <!-- /.box-body -->
     <div class="box-footer clearfix">
