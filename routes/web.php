@@ -16,6 +16,18 @@ Route::get('/', function() {
     return view('welcome');
 });
 
+
+
+    Route::resource('/users', 'UsersController');
+
+
+
+
+
+//Route::any('/{any?}/{any2?}', function() {
+//    return view('welcome');
+//});
+
 Route::get('/mysend/{text}', function ($text) {
     event(new App\Events\NotificationPusher($text));
     return "OK";
@@ -27,8 +39,7 @@ Route::get('/send', function () {
     return "OK";
 });
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::resource('/users', 'UsersController');

@@ -33,9 +33,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div id="app">            
             <div class="wrapper">                
                 @include('adminlte::layouts.partials.mainheader')
-
-                @include('layouts.partials.sidebar')
-
+                
+                @include('layouts.partials.sidebar')                
                 <!-- Content Wrapper. Contains page content -->
                 <div class="content-wrapper">
 

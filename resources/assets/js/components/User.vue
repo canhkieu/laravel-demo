@@ -5,7 +5,7 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">        
-        User
+        {{ message }}
     </div>
     <!-- /.box-body -->
     <div class="box-footer clearfix">
@@ -18,6 +18,11 @@
 
 <script>
     export default {
+        data: function(){
+                return {
+            message: 'This is message from user component.'
+            }
+        },
         mounted() {
             console.log('Component ready.')
         }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Request;
+
 class UsersController extends Controller {
 
     /**
@@ -10,13 +11,13 @@ class UsersController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {        
+    public function index() {
         $users = \App\User::paginate(10);
-        if(Request::ajax()){
+        if (Request::ajax()) {
             return response()->json($users);
         }
-                
-        return view('users.index', ['users' => $users]);
+
+        return view('welcome');
     }
 
     /**

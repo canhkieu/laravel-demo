@@ -1,3 +1,4 @@
+<template>
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
 
@@ -35,9 +36,6 @@
             <!-- Optionally, you can add icons to the links -->
             <li class="active"><a href="{{ url('home') }}"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.home') }}</span></a></li>
             <li><a href="/users"><i class='fa fa-link'></i> <span> Users</span></a></li>
-               <li>
-            <router-link to="/users"><i class='fa fa-link'></i> Users Router</router-link>
-            </li>
             <li class="treeview">
                 <a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.multilevel') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
@@ -49,3 +47,14 @@
     </section>
     <!-- /.sidebar -->
 </aside>
+
+
+</template>
+
+<script>
+    export default {
+        mounted() {
+            console.log('Sidebar Component ready.')
+        }
+    }
+</script>

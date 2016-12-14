@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * include Vue and Vue Resource. This gives a great starting point for
@@ -13,21 +12,23 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-//Vue.component('App', require('./components/App.vue'));
+//Vue.component('main-sidebar', require('./components/layouts/Sidebar.vue'));
+//Vue.component('main-header', require('./components/layouts/Header.vue'));
+Vue.config.debug = true;
 
 const router = new VueRouter({
     mode: 'history',
     routes: [
-        {path: '/', component: require('./components/Home.vue'), name: 'home'},
-        {path: '/user', component: require('./components/User.vue'), name: 'user'}
+        { path: '/', component: require('./components/Home.vue'), name: 'home' },
+        { path: '/user', component: require('./components/User.vue'), name: 'user' },
+        { path: '/users', component: require('./components/users/index.vue'), name: 'user-index' }
     ]
 })
 
 const app = new Vue({
     router,
     el: '#app',
-    data: {
-    }
+    data: {}
 })
 
 
@@ -108,7 +109,7 @@ const app = new Vue({
 //
 //});
 
-$(document).ajaxStart(function () {
+$(document).ajaxStart(function() {
     Pace.restart();
 });
 
