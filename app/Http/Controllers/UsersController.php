@@ -11,13 +11,31 @@ class UsersController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        $users = \App\User::paginate(10);
-        if (Request::ajax()) {
-            return response()->json($users);
-        }
+    public function index(Request $request) {
+      $query = \DB::table('users');
 
-        return view('welcome');
+
+
+
+      if(Request::has('sort')){
+        $sort = Request::input('sort');
+        $order = Request::input('order');
+
+        $query->orderBy($sort, $order);
+      }
+
+      if(Request::has('keyword')){
+          $keyword = Request::input('keyword');
+          $query->where('name','like', '%'.$keyword.'%');
+      }
+
+
+
+        $users = $query->paginate(10);
+
+            return response()->json($users);
+
+        // return view('welcome');
     }
 
     /**

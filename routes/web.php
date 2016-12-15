@@ -16,17 +16,15 @@ Route::get('/', function() {
     return view('welcome');
 });
 
-
-
+Route::group(['prefix' => 'json'], function(){
     Route::resource('/users', 'UsersController');
+});
 
+Route::any('/{any?}/{any2?}', function() {
+   return view('welcome');
+});
 
-
-
-
-//Route::any('/{any?}/{any2?}', function() {
-//    return view('welcome');
-//});
+return;
 
 Route::get('/mysend/{text}', function ($text) {
     event(new App\Events\NotificationPusher($text));
@@ -42,4 +40,3 @@ Route::get('/send', function () {
 //Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-

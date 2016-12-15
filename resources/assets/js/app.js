@@ -18,12 +18,25 @@ Vue.config.debug = true;
 
 const router = new VueRouter({
     mode: 'history',
-    routes: [
-        { path: '/', component: require('./components/Home.vue'), name: 'home' },
-        { path: '/user', component: require('./components/User.vue'), name: 'user' },
-        { path: '/users', component: require('./components/users/index.vue'), name: 'user-index' }
-    ]
+    routes: [{
+        path: '/',
+        component: require('./components/Home.vue'),
+        name: 'home'
+    }, {
+        path: '/user',
+        component: require('./components/User.vue'),
+        name: 'user'
+    }, {
+        path: '/users',
+        component: require('./components/users/index.vue'),
+        name: 'user-index'
+    }]
 })
+
+// router.beforeEach((to, from, next) => {
+//   console.log(to);
+//   next();
+// })
 
 const app = new Vue({
     router,

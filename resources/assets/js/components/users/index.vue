@@ -11,9 +11,15 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>
+                        <a href="#" @click="sortBy('id')" > ID </a>
+                    </th>
+                    <th>
+                      <a href="#" @click="sortBy('name')" > Name </a>
+                    </th>
+                    <th>
+                      <a href="#" @click="sortBy('email')" > email </a>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -33,12 +39,10 @@
                     <router-link :to="{name:'user-index', query:{page:n}}" v-on:click.prevent="loadUsers">{{ n }}</router-link>
                 </li>
                 <li v-if="pagination.next_page_url != null">
-                  <router-link :to="{name:'user-index', query:{page: (pagination.current_page + 1)}}" v-on:click.prevent="loadUsers"><span aria-hidden="true">&raquo;</span></router-link>
+                    <router-link :to="{name:'user-index', query:{page: (pagination.current_page + 1)}}" v-on:click.prevent="loadUsers"><span aria-hidden="true">&raquo;</span></router-link>
                 </li>
             </ul>
         </nav>
-
-
     </div>
 
 </div>
@@ -50,24 +54,19 @@
 export default {
     data: function() {
         return {
-            users: [],
-            pagination: {},
-            url: ''
+                sort: '',
+                order:'',
+                users: [],
+                pagination: {},
         }
     },
 
     created: function() {
-        this.url = document.URL;
-        this.loadUsers();
+        this.loadUsers(this.$route.fullPath);
     },
     watch: {
-        '$route': function() {
-            this.loadUsers();
-        }
-    },
-    computed: function() {
-        this.url = function() {
-            return document.URL;
+        '$route.fullPath': function() {
+            this.loadUsers(this.$route.fullPath);
         }
     },
     components: {
@@ -77,20 +76,21 @@ export default {
         },
     },
     methods: {
-        loadUsers: function() {
-            if (event) {
-                if (this.url == event.currentTarget.getAttribute('href'))
-                    return;
-                this.url = event.currentTarget.getAttribute('href');
-            }
-            this.$http.get(this.url).then(function(response) {
-                console.log(response);
-                history.pushState(null, null, this.url);
+        loadUsers: function(url) {
+          url = '/json'+ url;
+            this.$http.get(url).then(function(response) {
                 this.users = response.body.data;
                 this.setPagination(response.body);
             });
         },
+        sortBy: function(key) {
+            this.sort = key;
+            this.order = this.order === 'desc' ? 'asc' : 'desc';
+            var url =  this.$route.path + '?page=' + this.$route.query.page + '&sort=' + this.sort + '&order='+ this.order;
+            console.log(url);
+            this.loadUsers(url);
 
+        },
         setPagination: function(data) {
             this.pagination = {
                 current_page: data.current_page,
