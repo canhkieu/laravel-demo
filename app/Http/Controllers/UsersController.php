@@ -4,38 +4,30 @@ namespace App\Http\Controllers;
 
 use Request;
 
-class UsersController extends Controller {
+class UsersController extends Controller
+{
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) {
-      $query = \DB::table('users');
+    public function index(Request $request)
+    {
+        $query = \DB::table('users');
+        if (Request::has('sort')) {
+            $sort = Request::input('sort');
+            $order = Request::input('order');
 
-
-
-
-      if(Request::has('sort')){
-        $sort = Request::input('sort');
-        $order = Request::input('order');
-
-        $query->orderBy($sort, $order);
-      }
-
-      if(Request::has('keyword')){
-          $keyword = Request::input('keyword');
-          $query->where('name','like', '%'.$keyword.'%');
-      }
-
-
-
+            $query->orderBy($sort, $order);
+        }
+      
+        if (Request::has('keyword')) {
+            $keyword = Request::input('keyword');
+            $query->where('name', 'like', '%'.$keyword.'%');
+        }
         $users = $query->paginate(10);
-
-            return response()->json($users);
-
-        // return view('welcome');
+        return response()->json($users);
     }
 
     /**
@@ -43,7 +35,8 @@ class UsersController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
         //
     }
 
@@ -53,7 +46,8 @@ class UsersController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         //
     }
 
@@ -63,7 +57,8 @@ class UsersController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
+    public function show($id)
+    {
         //
     }
 
@@ -73,7 +68,8 @@ class UsersController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
         //
     }
 
@@ -84,7 +80,8 @@ class UsersController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         //
     }
 
@@ -94,8 +91,8 @@ class UsersController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         //
     }
-
 }

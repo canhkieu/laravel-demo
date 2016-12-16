@@ -33,11 +33,8 @@
         <ul class="sidebar-menu">
             <li class="header">{{ trans('adminlte_lang::message.header') }}</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="{{ url('home') }}"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.home') }}</span></a></li>
-            <li><a href="/users"><i class='fa fa-link'></i> <span> Users</span></a></li>
-               <li>
-            <router-link to="/users"><i class='fa fa-link'></i> Users Router</router-link>
-            </li>
+            <li>            <router-link to="/home"><i class='fa fa-home'></i> Home</router-link>        </li>
+<li>            <router-link to="/users"><i class='fa fa-users'></i> Users</router-link>            </li>
             <li class="treeview">
                 <a href="#"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.multilevel') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">

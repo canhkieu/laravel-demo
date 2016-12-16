@@ -19,7 +19,7 @@ Vue.config.debug = true;
 const router = new VueRouter({
     mode: 'history',
     routes: [{
-        path: '/',
+        path: '/home',
         component: require('./components/Home.vue'),
         name: 'home'
     }, {
