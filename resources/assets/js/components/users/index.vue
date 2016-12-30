@@ -8,30 +8,39 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-      <div class="col-md-4"></div>
-      <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
         <div class="col-md-4">
-          <div class="input-group has-feedback">
-              <div class="input-group-btn">
-                  <button type="button" class="btn btn-primary">Search</button>
-                  <button type="button" class="btn btn-default" aria-label="Clear"><span class="fa fa-times-circle-o"></span></button>
-              </div>
-              <input class="form-control" placeholder="Search" v-model="keyword" v-on:keyup.enter="search">
-              <span class="fa fa-search form-control-feedback"></span>
-          </div>
+            <div class="input-group has-feedback">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-primary">Search</button>
+                    <button type="button" class="btn btn-default" aria-label="Clear"><span class="fa fa-times-circle-o"></span></button>
+                </div>
+                <input class="form-control" placeholder="Search" v-model="keyword" v-on:keyup.enter="search">
+                <span class="fa fa-search form-control-feedback"></span>
+            </div>
         </div>
 
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th>
-                        <router-link :to="{query: Object.assign( {}, $route.query, {sort: 'id', order: this.order == 'desc' ? 'asc' : 'desc' })}"> ID </router-link>
+                        <router-link :to="{query: Object.assign( {}, $route.query, {sort: 'id', order: this.sort == 'id' & this.order == 'desc' ? 'asc' : 'desc' })}">
+                          ID
+                          <span v-if="this.sort==='id'" class="pull-right fa" v-bind:class="[this.order === 'desc' ? 'fa-arrow-up' : 'fa-arrow-down']"></span>
+                        </router-link>
                     </th>
                     <th>
-                        <router-link :to="{query: Object.assign( {}, $route.query, {sort: 'name', order: this.order == 'desc' ? 'asc' : 'desc' })}"> Name </router-link>
+                        <router-link :to="{query: Object.assign( {}, $route.query, {sort: 'name', order: this.sort == 'name' &this.order == 'desc' ? 'asc' : 'desc' })}">
+                          Name
+                          <span v-if="this.sort==='name'" class="pull-right fa" v-bind:class="[this.order === 'desc' ? 'fa-arrow-up' : 'fa-arrow-down']"></span>
+                        </router-link>
                     </th>
                     <th>
-                        <router-link :to="{query: Object.assign( {}, $route.query, {sort: 'email', order: this.order == 'desc' ? 'asc' : 'desc' })}"> Email </router-link>
+                        <router-link :to="{query: Object.assign( {}, $route.query, {sort: 'email', order: this.sort == 'email' &this.order == 'desc' ? 'asc' : 'desc' })}">
+                          Email
+                          <span v-if="this.sort==='email'" class="pull-right fa" v-bind:class="[this.order === 'desc' ? 'fa-arrow-up' : 'fa-arrow-down']"></span>
+                        </router-link>
                     </th>
                 </tr>
             </thead>
@@ -79,7 +88,8 @@ export default {
         this.sort = this.$route.query.sort;
     },
     watch: {
-        '$route.fullPath': function() {
+        '$route': function() {
+          console.log("Url thay đổi");
             this.keyword = this.$route.query.keyword;
             this.order = this.$route.query.order;
             this.sort = this.$route.query.sort;
